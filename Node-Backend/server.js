@@ -8,9 +8,10 @@ const errorHandler = require("./middleware/errorHandler");
 
 const MONGO_URL = process.env.MONGO_URL || process; //secured the url inside .env and accessing it
 const PORT = process.env.PORT || process; //secured the port inside .env and accessing it
+const FRONTEND = process.env.FRONTEND;
 
-var corsOptions = {
-  origin: "http://example.com", // only the mentioned domain can access to out backend
+const corsOptions = {
+  origin: FRONTEND, // only the mentioned domain can access to out backend
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
