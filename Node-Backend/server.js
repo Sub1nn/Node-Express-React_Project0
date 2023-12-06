@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express"); //this express is inside node_modules folder
+const cors = require("cors"); // cors middleware connects front end to backend solving cross site origin problem
 const app = express(); //app is the instance of express
 const mongoose = require("mongoose"); //mongoose is also inside node_modules folder
 const productRoute = require("./routes/productRoute");
@@ -7,6 +8,12 @@ const errorHandler = require("./middleware/errorHandler");
 
 const MONGO_URL = process.env.MONGO_URL || process; //secured the url inside .env and accessing it
 const PORT = process.env.PORT || process; //secured the port inside .env and accessing it
+
+var corsOptions = {
+  origin: "http://example.com", // only the mentioned domain can access to out backend
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 app.use(express.json()); //json middleware
 app.use(express.urlencoded({ extended: false })); //form middleware
 //urlencoded is a method that parses URL-encoded data, decodes it (in the format of key1=value1) into a JS object
@@ -15,8 +22,7 @@ app.use("/api/products", productRoute); //middleware to use the product route. W
 //Now the server only runs in the browser after declaring routes as follows:
 
 app.get("/", (req, res) => {
-  //res.send("Welcome to the server on port 3000");
-  throw new Error("Fake Error");
+  res.send("Welcome to the server on port 3000");
 });
 app.get("/blog", (req, res) => {
   res.send("Welcome to the blog of Mr khatiwada on port 3000");
