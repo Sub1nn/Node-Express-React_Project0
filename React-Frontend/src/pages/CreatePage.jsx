@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const CreatePage = () => {
   const [name, setName] = useState("");
@@ -6,17 +9,29 @@ const CreatePage = () => {
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const saveProduct = (e) => {
+  const saveProduct = async (e) => {
     e.preventDefault(); //prevent page from refreshing
     if (name === "" || quantity === "" || price === "" || image === "") {
       alert("Please fill out all the input fields");
+
       return;
     }
     try {
       setIsLoading(true);
+      const res = await axios.post("http://localhost:3000/api/products", {
+        Name: name,
+        Quantity: quantity,
+        Price: price,
+        Image: image,
+      });
+      toast.success(`Save ${res.data.Name} successfully`);
+      setIsLoading(false);
+      navigate("/");
     } catch (error) {
-      console.log(error);
+      toast.error(error.message);
+      setIsLoading(false);
     }
   };
 
