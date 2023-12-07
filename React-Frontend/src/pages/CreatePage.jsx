@@ -1,16 +1,38 @@
+import { useEffect, useState } from "react";
+
 const CreatePage = () => {
+  const [name, setName] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState("");
+  const [image, setImage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const saveProduct = (e) => {
+    e.preventDefault(); //prevent page from refreshing
+    if (name === "" || quantity === "" || price === "" || image === "") {
+      alert("Please fill out all the input fields");
+      return;
+    }
+    try {
+      setIsLoading(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="max-w-lg bg-white shadow-lg mx-auto p-5 rounded mt-6">
       <h2 className="font-semibold text-2xl mb-4 block text-center ">
         Create Product
       </h2>
-      <form>
+      <form onSubmit={saveProduct}>
         <div className="space-y-2">
           <div>
             <label>Name</label>
             <input
               type="text"
-              value=""
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="w-full block border p-3 text-gray-600 rounded focus:outline-none focus:shadow-outline focus:border-blue-200 placeholder-gray-400"
               placeholder="Enter Name"
             />
@@ -19,7 +41,8 @@ const CreatePage = () => {
             <label>Quantity</label>
             <input
               type="number"
-              value=""
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
               className="w-full block border p-3 text-gray-600 rounded focus:outline-none focus:shadow-outline focus:border-blue-200 placeholder-gray-400"
               placeholder="Enter Quantity"
             />
@@ -28,7 +51,8 @@ const CreatePage = () => {
             <label>Price</label>
             <input
               type="number"
-              value=""
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
               className="w-full block border p-3 text-gray-600 rounded focus:outline-none focus:shadow-outline focus:border-blue-200 placeholder-gray-400"
               placeholder="Enter Price"
             />
@@ -37,15 +61,18 @@ const CreatePage = () => {
             <label>Image URL</label>
             <input
               type="text"
-              value=""
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
               className="w-full block border p-3 text-gray-600 rounded focus:outline-none focus:shadow-outline focus:border-blue-200 placeholder-gray-400"
               placeholder="Enter Image URL"
             />
           </div>
           <div>
-            <button className="block w-full mt-6 bg-blue-700 text-white rounded-sm px-4 py-2 font-bold hover:bg-blue-600 hover:cursor-pointer">
-              Save
-            </button>
+            {!isLoading && (
+              <button className="block w-full mt-6 bg-blue-700 text-white rounded-sm px-4 py-2 font-bold hover:bg-blue-600 hover:cursor-pointer">
+                Save
+              </button>
+            )}
           </div>
         </div>
       </form>
