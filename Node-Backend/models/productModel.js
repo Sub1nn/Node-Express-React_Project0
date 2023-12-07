@@ -3,25 +3,25 @@ const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema(
   //productSchema contains fields and timestamps. Fields are data information and timeStamps is used to track when the data is created or modified.
   {
-    name: {
+    Name: {
       type: String,
       required: [true, "please enter the product"],
       trim: true,
     },
-    company: {
+    Company: {
       type: String,
       required: false,
       trim: true,
     },
-    price: {
+    Price: {
       type: Number,
       required: true,
     },
-    quantity: {
+    Quantity: {
       type: Number,
       required: true,
     },
-    image: {
+    Image: {
       type: String,
       required: true,
     },
