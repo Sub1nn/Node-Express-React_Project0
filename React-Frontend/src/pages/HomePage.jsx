@@ -36,7 +36,13 @@ const HomePage = () => {
             {products.length > 0 ? (
               <>
                 {products.map((product, index) => {
-                  return <Product key={index} product={product} />;
+                  return (
+                    <Product
+                      key={index}
+                      product={product}
+                      getProducts={getProducts}
+                    />
+                  );
                 })}
               </>
             ) : (
