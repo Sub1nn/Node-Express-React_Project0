@@ -2,6 +2,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import PropTypes from "prop-types";
+import { VITE_BACKEND_URL } from "../App";
 
 const Product = ({ product, getProducts }) => {
   const deleteProduct = async (id) => {
@@ -15,7 +17,7 @@ const Product = ({ product, getProducts }) => {
     });
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:3000/api/products/${id}`);
+        await axios.delete(`${VITE_BACKEND_URL}/api/products/${id}`);
         toast.success("Product deleted successfully");
         getProducts();
       } catch (error) {
@@ -48,6 +50,11 @@ const Product = ({ product, getProducts }) => {
       </div>
     </div>
   );
+};
+
+Product.propTypes = {
+  product: PropTypes.object,
+  getProducts: PropTypes.func,
 };
 
 export default Product;
