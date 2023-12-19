@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Product from "../Components/Product";
 import { Link } from "react-router-dom";
+import { VITE_BACKEND_URL } from "../App";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -10,8 +11,7 @@ const HomePage = () => {
   const getProducts = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get("http://localhost:3000/api/products/");
-      console.log(response.data);
+      const response = await axios.get(`${VITE_BACKEND_URL}/api/products/`);
       setProducts(response.data);
       setIsLoading(false);
     } catch (error) {
